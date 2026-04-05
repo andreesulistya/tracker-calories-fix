@@ -1,0 +1,325 @@
+/* --- 1. DASAR --- */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding-bottom: 60px;
+  color: #333;
+}
+.container {
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 15px;
+}
+
+/* --- 2. NAVIGASI --- */
+.navbar {
+  display: flex;
+  background-color: #222;
+  justify-content: space-around;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar button {
+  background: none;
+  border: none;
+  color: #bbb;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+.navbar button:hover {
+  color: white;
+}
+.page {
+  display: none;
+}
+.active {
+  display: block;
+}
+
+/* --- 3. DASHBOARD --- */
+.summary-card-grafik {
+  background: #fff;
+  padding: 30px 20px;
+  border-radius: 20px;
+  border: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+.chart-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin-bottom: 20px;
+}
+.chart-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 80%;
+}
+.net-label {
+  font-size: 0.85em;
+  color: #888;
+  text-transform: uppercase;
+}
+.net-value {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin: 2px 0;
+}
+.status-value {
+  font-size: 0.95em;
+  font-weight: bold;
+}
+.summary-details-new {
+  display: flex;
+  gap: 20px;
+  font-size: 0.95em;
+}
+.dot-in {
+  width: 12px;
+  height: 12px;
+  background-color: #d9534f;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+.dot-out {
+  width: 12px;
+  height: 12px;
+  background-color: #28a745;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+/* --- 4. GLOBAL CARDS & INPUTS --- */
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #eaeaea;
+  margin-top: 15px;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.input-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+label {
+  font-size: 0.95em;
+  color: #222;
+  font-weight: 500;
+}
+
+input,
+select,
+.readonly-input {
+  width: 100%;
+  padding: 14px 15px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  box-sizing: border-box;
+  font-family: inherit;
+  border: 1px solid #ddd;
+}
+.readonly-input {
+  background-color: #f9f9f9;
+  border: 1px dashed #ccc;
+  color: #007bff;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* --- 5. PROFIL --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.ideal-container {
+  text-align: center;
+  margin: 20px 0;
+}
+.ideal-bubble {
+  display: inline-block;
+  background-color: #f0fdf4;
+  padding: 15px 50px;
+  border-radius: 50px;
+  color: #28a745;
+  font-size: 2.2em;
+  font-weight: bold;
+}
+.ideal-bubble small {
+  font-size: 0.5em;
+}
+.backup-section {
+  text-align: center;
+  margin-top: 10px;
+}
+.backup-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.btn-export {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.btn-import {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+}
+.backup-note {
+  font-size: 0.85em;
+  color: #888;
+  margin-top: 15px;
+}
+
+/* --- 6. TABEL --- */
+.fixed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+  margin-top: 15px;
+  table-layout: auto;
+}
+th,
+td {
+  border-bottom: 1px solid #eee;
+  padding: 12px 8px;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+th {
+  background-color: #f8f9fa;
+  color: #555;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+#archiveTable th:nth-child(1),
+#archiveTable td:nth-child(1) {
+  width: 75px;
+}
+#archiveTable th:nth-child(3),
+#archiveTable td:nth-child(3) {
+  width: 45px;
+  text-align: center;
+}
+#archiveTable th:nth-child(4),
+#archiveTable td:nth-child(4) {
+  width: 55px;
+  text-align: center;
+}
+#archiveTable th:nth-child(5),
+#archiveTable td:nth-child(5) {
+  width: 85px;
+  text-align: center;
+}
+#bmrTableBody td {
+  text-align: center;
+}
+
+/* --- 7. BUTTONS & MODAL --- */
+.btn-main {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1em;
+}
+.btn-edit {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-hapus {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+}
+.modal.active {
+  display: flex;
+}
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+}
+
+@media (max-width: 500px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+  input,
+  select,
+  .readonly-input,
+  .btn-main {
+    font-size: 1em;
+    padding: 12px;
+  }
+  .ideal-bubble {
+    padding: 10px 35px;
+    font-size: 1.8em;
+  }
+  .chart-container {
+    width: 180px;
+    height: 180px;
+  }
+}
