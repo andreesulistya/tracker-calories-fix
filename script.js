@@ -128,16 +128,19 @@ function renderArchive() {
     let sorted = logs.map((it, i) => ({...it, originalIndex: i}))
                      .sort((a,b) => b.tanggal.localeCompare(a.tanggal) || b.ts - a.ts);
 
-    // 2. Potong data sesuai halaman (Pagination Logic)
+    // 2. Potong data sesuai halaman
     const start = (currentPage - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     const paginatedItems = sorted.slice(start, end);
 
     // 3. Render ke tabel
     paginatedItems.forEach(item => {
+        // GUNAKAN FUNGSI FORMAT INDO DI SINI
+        const tglTampil = formatTanggalIndo(item.tanggal); 
+        
         body.innerHTML += `
             <tr>
-                <td><small>${item.tanggal.slice(5)}</small></td>
+                <td><small>${tglTampil}</small></td>
                 <td class="wrap-text">${item.nama}</td>
                 <td style="text-align:center">${item.tipe==='in'?'In':'Out'}</td>
                 <td style="text-align:center">${item.kalori}</td>
@@ -147,7 +150,6 @@ function renderArchive() {
                 </td>
             </tr>`;
     });
-
     // 4. Panggil kontrol tombol halaman
     renderPagination(sorted.length);
 }
