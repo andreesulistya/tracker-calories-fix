@@ -3,29 +3,45 @@ let riwayatFisik = JSON.parse(localStorage.getItem('riwayatFisik')) || [];
 let profile = JSON.parse(localStorage.getItem('profile')) || { name: '', age: 0, weight: 0, height: 0, bmr: 0, tdee: 0 };
 let myChart = null;
 
-// --- SWIPE LOGIC ---
+// --- SWIPE LOGIC (VERSI LEBIH STABIL) ---
 const pagesOrder = ['dashboard', 'input-data', 'bmr-calc', 'profile'];
 let touchstartX = 0;
+let touchstartY = 0; // Tambah pendeteksi posisi awal Y
 let touchendX = 0;
+let touchendY = 0; // Tambah pendeteksi posisi akhir Y
 
 function handleGesture() {
-    const threshold = 70;
-    const activePage = document.querySelector('.page.active').id;
-    const currentIndex = pagesOrder.indexOf(activePage);
+    const minDistance = 100; // Naikkan batas geser (Pixel) biar gak terlalu sensitif
+    const diffX = touchendX - touchstartX;
+    const diffY = touchendY - touchstartY;
 
-    if (touchendX < touchstartX - threshold && currentIndex < pagesOrder.length - 1) {
-        showPage(pagesOrder[currentIndex + 1]);
-    }
-    if (touchendX > touchstartX + threshold && currentIndex > 0) {
-        showPage(pagesOrder[currentIndex - 1]);
+    // VALIDASI: Hanya swipe kalau geseran horizontal jauh lebih besar dari vertikal
+    // Ini biar pas lo scroll ke bawah, nggak sengaja pindah menu
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > minDistance) {
+        const activePage = document.querySelector('.page.active').id;
+        const currentIndex = pagesOrder.indexOf(activePage);
+
+        if (diffX < 0 && currentIndex < pagesOrder.length - 1) {
+            // Swipe Kiri -> Next
+            showPage(pagesOrder[currentIndex + 1]);
+        } else if (diffX > 0 && currentIndex > 0) {
+            // Swipe Kanan -> Prev
+            showPage(pagesOrder[currentIndex - 1]);
+        }
     }
 }
 
-document.getElementById('swipe-area').addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
+// Event Listeners (Update dengan Y position)
+document.getElementById('swipe-area').addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX;
+    touchstartY = e.changedTouches[0].screenY;
+}, {passive: true});
+
 document.getElementById('swipe-area').addEventListener('touchend', e => {
     touchendX = e.changedTouches[0].screenX;
+    touchendY = e.changedTouches[0].screenY;
     handleGesture();
-});
+}, {passive: true});
 
 // --- NAVIGATION ---
 function showPage(pageId) {
