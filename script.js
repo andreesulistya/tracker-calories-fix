@@ -2,6 +2,8 @@ let logs = JSON.parse(localStorage.getItem('logs')) || [];
 let riwayatFisik = JSON.parse(localStorage.getItem('riwayatFisik')) || [];
 let profile = JSON.parse(localStorage.getItem('profile')) || { name: '', age: 0, weight: 0, height: 0, bmr: 0, tdee: 0 };
 let myChart = null;
+let currentPage = 1;
+const rowsPerPage = 10; // Jumlah baris per halaman
 
 // --- SWIPE LOGIC (VERSI LEBIH STABIL) ---
 const pagesOrder = ['dashboard', 'input-data', 'bmr-calc', 'profile'];
@@ -121,14 +123,34 @@ function renderArchive() {
     const body = document.getElementById('archiveTableBody');
     if(!body) return;
     body.innerHTML = '';
-    let sorted = logs.map((it, i) => ({...it, idx: i})).sort((a,b) => b.tanggal.localeCompare(a.tanggal) || b.ts - a.ts);
-    sorted.slice(0, 15).forEach(item => {
-        body.innerHTML += `<tr><td><small>${item.tanggal.slice(5)}</small></td><td class="wrap-text">${item.nama}</td>
-        <td style="text-align:center">${item.tipe==='in'?'In':'Out'}</td><td style="text-align:center">${item.kalori}</td>
-        <td style="text-align:center"><button class="btn-edit" onclick="bukaEdit(${item.idx})">✎</button><button class="btn-hapus" onclick="hapusLog(${item.idx})">x</button></td></tr>`;
-    });
-}
 
+    // 1. Sortir data (Terbaru di atas)
+    let sorted = logs.map((it, i) => ({...it, originalIndex: i}))
+                     .sort((a,b) => b.tanggal.localeCompare(a.tanggal) || b.ts - a.ts);
+
+    // 2. Potong data sesuai halaman (Pagination Logic)
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    const paginatedItems = sorted.slice(start, end);
+
+    // 3. Render ke tabel
+    paginatedItems.forEach(item => {
+        body.innerHTML += `
+            <tr>
+                <td><small>${item.tanggal.slice(5)}</small></td>
+                <td class="wrap-text">${item.nama}</td>
+                <td style="text-align:center">${item.tipe==='in'?'In':'Out'}</td>
+                <td style="text-align:center">${item.kalori}</td>
+                <td style="text-align:center">
+                    <button class="btn-edit" onclick="bukaEdit(${item.originalIndex})">✎</button>
+                    <button class="btn-hapus" onclick="hapusLog(${item.originalIndex})">x</button>
+                </td>
+            </tr>`;
+    });
+
+    // 4. Panggil kontrol tombol halaman
+    renderPagination(sorted.length);
+}
 function renderRekapHarian() {
     const body = document.getElementById('rekapTableBody');
     if(!body) return; body.innerHTML = '';
@@ -218,6 +240,37 @@ function importData(e) {
         const d = JSON.parse(ev.target.result); logs = d.logs || []; riwayatFisik = d.riwayatFisik || []; profile = d.profile || profile;
         save(); updateUI(); alert("Backup Berhasil!");
     }; r.readAsText(e.target.files[0]);
+}
+function renderPagination(totalItems) {
+    const ctrl = document.getElementById('paginationCtrl');
+    if (!ctrl) return;
+    
+    const totalPages = Math.ceil(totalItems / rowsPerPage);
+    ctrl.innerHTML = '';
+
+    if (totalPages <= 1) return; // Jangan munculin tombol kalau cuma 1 halaman
+
+    // Tombol Previous
+    if (currentPage > 1) {
+        ctrl.innerHTML += `<button onclick="changePage(${currentPage - 1})">«</button>`;
+    }
+
+    // Nomor Halaman
+    for (let i = 1; i <= totalPages; i++) {
+        const activeClass = (i === currentPage) ? 'class="active-page"' : '';
+        ctrl.innerHTML += `<button ${activeClass} onclick="changePage(${i})">${i}</button>`;
+    }
+
+    // Tombol Next
+    if (currentPage < totalPages) {
+        ctrl.innerHTML += `<button onclick="changePage(${currentPage + 1})">»</button>`;
+    }
+}
+
+function changePage(page) {
+    currentPage = page;
+    renderArchive(); // Render ulang tabel arsip aja
+    window.scrollTo(0, document.getElementById('archiveTable').offsetTop - 100);
 }
 
 // --- INIT ---
