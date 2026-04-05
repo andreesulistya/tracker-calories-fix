@@ -94,13 +94,20 @@ function renderRekapAndProfile() {
         });
     }
 
-    const bmrBody = document.getElementById('bmrTableBody');
+const bmrBody = document.getElementById('bmrTableBody');
     if (bmrBody) {
         bmrBody.innerHTML = '';
         let sortedBmr = riwayatFisik.map((it, i) => ({...it, originalIndex: i})).sort((a,b) => b.tanggal.localeCompare(a.tanggal));
         sortedBmr.forEach(it => {
-            bmrBody.innerHTML += `<tr><td>${formatTanggalIndo(it.tanggal)}</td><td>${it.berat} kg</td><td>${it.tdee}</td>
-                <td><button class="btn-edit" onclick="bukaEditBmr(${it.originalIndex})">✎</button><button class="btn-hapus" onclick="hapusBMR(${it.originalIndex})">x</button></td></tr>`;
+            bmrBody.innerHTML += `<tr>
+                <td>${formatTanggalIndo(it.tanggal)}</td>
+                <td>${it.berat} kg</td>
+                <td style="color:#007bff; font-weight:bold;">${it.bmr || '-'}</td> <td style="color:#28a745; font-weight:bold;">${it.tdee}</td>
+                <td>
+                    <button class="btn-edit" onclick="bukaEditBmr(${it.originalIndex})">✎</button>
+                    <button class="btn-hapus" onclick="hapusBMR(${it.originalIndex})">x</button>
+                </td>
+            </tr>`;
         });
     }
 
@@ -190,5 +197,27 @@ function changePage(p) { currentPage = p; updateUI(); }
 function hapusLog(i) { if(confirm("Hapus?")) { logs.splice(i,1); saveData(); updateUI(); } }
 function hapusBMR(i) { if(confirm("Hapus?")) { riwayatFisik.splice(i,1); saveData(); updateUI(); } }
 function saveProfile() { profile.name = document.getElementById('profName').value; saveData(); }
+
+function showPage(pageId) {
+    // Sembunyikan semua halaman
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    
+    // Tampilkan halaman yang dipilih
+    document.getElementById(pageId).classList.add('active');
+    
+    // Reset warna semua tombol navbar
+    document.querySelectorAll('.navbar button').forEach(btn => btn.classList.remove('active-menu'));
+    
+    // Kasih warna biru ke tombol yang aktif
+    const activeBtn = document.querySelector(`button[onclick="showPage('${pageId}')"]`);
+    if (activeBtn) activeBtn.classList.add('active-menu');
+
+    if (pageId === 'dashboard') updateUI();
+}
+
+// Panggil sekali saat load agar menu Dashboard langsung berwarna biru
+document.addEventListener("DOMContentLoaded", () => {
+    showPage('dashboard');
+});
 
 updateUI();
