@@ -2,34 +2,34 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Defisit Tracker Pro</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <nav class="navbar">
-        <button onclick="showPage('dashboard')" title="Dashboard">
+        <button id="nav-dashboard" onclick="showPage('dashboard')">
             <span class="material-icons">dashboard</span>
-            <!-- <small>Dash</small> -->
+            <small>Dash</small>
         </button>
-        <button onclick="showPage('input-data')" title="Input Kalori">
+        <button id="nav-input-data" onclick="showPage('input-data')">
             <span class="material-icons">add_circle</span>
-            <!-- <small>Input</small> -->
+            <small>Input</small>
         </button>
-        <button onclick="showPage('bmr-calc')" title="BMR & TDEE">
+        <button id="nav-bmr-calc" onclick="showPage('bmr-calc')">
             <span class="material-icons">calculate</span>
-            <!-- <small>BMR</small> -->
+            <small>BMR</small>
         </button>
-        <button onclick="showPage('profile')" title="Profil">
+        <button id="nav-profile" onclick="showPage('profile')">
             <span class="material-icons">person</span>
-            <!-- <small>Profil</small> -->
+            <small>Profil</small>
         </button>
     </nav>
 
-    <div class="container">
+    <div class="container" id="swipe-area">
         
         <section id="dashboard" class="page active">
             <h2>Dashboard Hari Ini</h2>
@@ -43,8 +43,8 @@
                     </div>
                 </div>
                 <div class="summary-details-new">
-                    <div class="detail-item"><span class="dot-in"></span> Masuk: <b id="dashIn">0</b> kcal</div>
-                    <div class="detail-item"><span class="dot-out"></span> Keluar: <b id="dashOut">0</b> kcal</div>
+                    <div class="detail-item"><span class="dot-in"></span> Masuk: <b id="dashIn">0</b></div>
+                    <div class="detail-item"><span class="dot-out"></span> Keluar: <b id="dashOut">0</b></div>
                 </div>
             </div>
             
@@ -66,7 +66,15 @@
             <h4>Rekapitulasi Harian</h4>
             <div style="overflow-x: auto;">
                 <table class="fixed-table">
-                    <thead><tr><th>Tanggal</th><th>Masuk</th><th>Keluar</th><th>Net</th><th>Status</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>Net</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
                     <tbody id="rekapTableBody"></tbody>
                 </table>
             </div>
@@ -101,65 +109,72 @@
             <h3 style="margin-top: 30px;">Arsip Aktivitas (History)</h3>
             <div style="overflow-x: auto;">
                 <table class="fixed-table" id="archiveTable">
-                    <thead><tr><th>Tanggal</th><th>Kegiatan</th><th style="text-align:center;">Tipe</th><th style="text-align:center;">Kalori</th><th style="text-align:center;">Aksi</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Tgl</th>
+                            <th>Kegiatan</th>
+                            <th style="text-align:center;">Tipe</th>
+                            <th style="text-align:center;">Kcal</th>
+                            <th style="text-align:center;">Aksi</th>
+                        </tr>
+                    </thead>
                     <tbody id="archiveTableBody"></tbody>
                 </table>
             </div>
             <div class="pagination" id="paginationCtrl"></div>
         </section>
 
-<section id="bmr-calc" class="page">
-    <h2>Kalkulator BMR & TDEE</h2>
-    
-    <div class="card info-box">
-        <p><b>BMR (Basal Metabolic Rate):</b> Kalori yang dibakar tubuh saat istirahat total (hanya untuk fungsi organ).</p>
-        <p style="margin-top: 10px;"><b>TDEE (Total Daily Energy Expenditure):</b> Estimasi total kalori yang dibakar setelah ditambah level aktivitas fisik Anda.</p>
-    </div>
+        <section id="bmr-calc" class="page">
+            <h2>Kalkulator BMR & TDEE</h2>
+            <div class="card info-box">
+                <p><b>BMR:</b> Kalori minimal untuk bertahan hidup saat diam.</p>
+                <p style="margin-top:8px;"><b>TDEE:</b> Total kalori yang dibakar termasuk aktivitas fisik.</p>
+            </div>
+            <div class="card">
+                <div class="input-group">
+                    <div class="input-item">
+                        <label>Tanggal Penimbangan:</label>
+                        <input type="date" id="bmrDate">
+                    </div>
+                    <div class="input-item">
+                        <label>Gender:</label>
+                        <select id="gender">
+                            <option value="male">Laki-laki</option>
+                            <option value="female">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="input-item"><input type="number" id="bmr-age" placeholder="Usia (Tahun)"></div>
+                    <div class="input-item"><input type="number" id="bmr-weight" placeholder="Berat (kg)"></div>
+                    <div class="input-item"><input type="number" id="bmr-height" placeholder="Tinggi (cm)"></div>
+                    <div class="input-item">
+                        <label>Level Aktivitas:</label>
+                        <select id="activity">
+                            <option value="1.2">Sedentary (Jarang gerak)</option>
+                            <option value="1.375">Lightly Active (1-3 hari/minggu)</option>
+                            <option value="1.55">Moderately Active (3-5 hari/minggu)</option>
+                            <option value="1.725">Very Active (6-7 hari/minggu)</option>
+                        </select>
+                    </div>
+                    <button class="btn-main" onclick="hitungBMR()">Hitung & Simpan</button>
+                </div>
+            </div>
+            <h4 style="margin-top: 30px;">Riwayat Fisik</h4>
+            <div style="overflow-x: auto;">
+                <table class="fixed-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">Tanggal</th>
+                            <th style="text-align:center;">Berat</th>
+                            <th style="text-align:center;">BMR</th>
+                            <th style="text-align:center;">TDEE</th>
+                            <th style="text-align:center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bmrTableBody"></tbody>
+                </table>
+            </div>
+        </section>
 
-    <div class="card">
-        <div class="input-group">
-            <div class="input-item">
-                <label>Tanggal Penimbangan:</label>
-                <input type="date" id="bmrDate">
-            </div>
-            <div class="input-item">
-                <label>Gender:</label>
-                <select id="gender">
-                    <option value="male">Laki-laki</option>
-                    <option value="female">Perempuan</option>
-                </select>
-            </div>
-            <div class="input-item"><input type="number" id="bmr-age" placeholder="Usia (Tahun)"></div>
-            <div class="input-item"><input type="number" id="bmr-weight" placeholder="Berat (kg)"></div>
-            <div class="input-item"><input type="number" id="bmr-height" placeholder="Tinggi (cm)"></div>
-            <div class="input-item">
-                <label>Aktivitas:</label>
-                <select id="activity">
-                    <option value="1.2">Sedentary (Jarang gerak)</option>
-                    <option value="1.375">Lightly Active (1-3 hari/minggu)</option>
-                    <option value="1.55">Moderately Active (3-5 hari/minggu)</option>
-                    <option value="1.725">Very Active (6-7 hari/minggu)</option>
-                </select>
-            </div>
-            <button class="btn-main" onclick="hitungBMR()">Hitung & Simpan</button>
-        </div>
-    </div>
-
-    <h4 style="margin-top: 30px;">Riwayat Fisik</h4>
-    <div style="overflow-x: auto;">
-        <table class="fixed-table">
-            <thead>
-                <tr>
-                    <th style="text-align:center;">Tanggal</th>
-                    <th style="text-align:center;">Berat</th>
-                    <th style="text-align:center;">BMR</th> <th style="text-align:center;">TDEE</th>
-                    <th style="text-align:center;">Aksi</th>
-                </tr>
-            </thead>
-            <tbody id="bmrTableBody"></tbody>
-        </table>
-    </div>
-</section>
         <section id="profile" class="page">
             <h2>Profil Pengguna</h2>
             <div class="card">
