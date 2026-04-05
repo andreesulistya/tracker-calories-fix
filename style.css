@@ -152,6 +152,37 @@ th { background-color: #f8f9fa; color: #555; font-size: 0.7em; text-transform: u
     background: #f0f2f5;
 }
 
-#archiveTable th:nth-child(1), #archiveTable td:nth-child(1) { 
-    width: 90px; /* Gue lebarin dikit dari 75px ke 90px biar tahunnya gak kepotong */
+/* --- PENGATURAN LEBAR KOLOM ARSIP --- */
+
+/* Kolom 1: Tanggal (Dibuat pas untuk DD/MM/YYYY) */
+#archiveTable th:nth-child(1), 
+#archiveTable td:nth-child(1) { 
+    width: 90px; 
+}
+
+/* Kolom 2: Kegiatan (Dibuat AUTO/SISA RUANG agar fleksibel) */
+#archiveTable th:nth-child(2), 
+#archiveTable td:nth-child(2) { 
+    width: auto; 
+}
+
+/* Kolom 3: Tipe (In/Out - dibuat sempit saja) */
+#archiveTable th:nth-child(3), 
+#archiveTable td:nth-child(3) { 
+    width: 45px; 
+    text-align: center; 
+}
+
+/* Kolom 4: Kalori (Angka - dibuat pas) */
+#archiveTable th:nth-child(4), 
+#archiveTable td:nth-child(4) { 
+    width: 55px; 
+    text-align: center; 
+}
+
+/* Kolom 5: Aksi (Tombol Edit/Hapus - harus cukup buat 2 tombol) */
+#archiveTable th:nth-child(5), 
+#archiveTable td:nth-child(5) { 
+    width: 85px; 
+    text-align: center; 
 }
