@@ -121,3 +121,33 @@ th { background-color: #f8f9fa; color: #555; font-size: 0.7em; text-transform: u
     .navbar small { display: none; }
     .navbar { padding: 15px 0; }
 }
+
+/* --- PAGINATION STYLE --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.pagination button {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    transition: 0.2s;
+}
+
+.pagination button.active-page {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination button:hover:not(.active-page) {
+    background: #f0f2f5;
+}
