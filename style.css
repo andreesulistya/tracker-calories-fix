@@ -151,3 +151,7 @@ th { background-color: #f8f9fa; color: #555; font-size: 0.7em; text-transform: u
 .pagination button:hover:not(.active-page) {
     background: #f0f2f5;
 }
+
+#archiveTable th:nth-child(1), #archiveTable td:nth-child(1) { 
+    width: 90px; /* Gue lebarin dikit dari 75px ke 90px biar tahunnya gak kepotong */
+}
