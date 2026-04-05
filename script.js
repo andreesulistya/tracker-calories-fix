@@ -195,7 +195,7 @@ function save() { localStorage.setItem('logs', JSON.stringify(logs)); localStora
 
 function exportData() {
     const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ logs, riwayatFisik, profile }));
-    const a = document.createElement('a'); a.href = data; a.download = `backup_diet.json`; a.click();
+    const a = document.createElement('a'); a.href = data; a.download = `calory_tracker_data.json`; a.click();
 }
 function importData(e) {
     const r = new FileReader(); r.onload = (ev) => {
