@@ -194,7 +194,7 @@ function renderBmrHistory() {
         const realIdx = riwayatFisik.indexOf(it);
         body.innerHTML += `<tr><td><small>${formatTanggalIndo(it.tanggal)}</small></td><td>${it.berat} kg</td>
         <td style="color:#007bff; font-weight:bold">${it.bmr}</td><td style="color:#28a745; font-weight:bold">${it.tdee}</td>
-        <td><button class="btn-edit" onclick="bukaEditBmr(${realIdx})">✎</button><button class="btn-hapus" onclick="hapusBmr(${realIdx})">x</button></td></tr>`;
+        <td><button class="btn-edit" onclick="bukaEditBmr(${realIdx})">✎</button><button class="btn-hapus" onclick="hapusBmr(${realIdx})">✖</button></td></tr>`;
     });
 }
 
