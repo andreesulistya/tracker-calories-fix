@@ -57,7 +57,9 @@ function showPage(pageId) {
 // TAMBAHKAN INI: Setiap pindah ke input-data, paksa tanggal ke hari ini
     if (pageId === 'input-data') {
         const dateInput = document.getElementById('inputDate');
-        if (dateInput) dateInput.value = getTodayKey();
+	if (inputDate) {
+       	 inputDate.value = getTodayKey(); // Paksa ke tanggal 7 April otomatis
+   	}
     }
 
     if (pageId === 'dashboard') updateUI();
