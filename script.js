@@ -54,46 +54,69 @@ function showPage(pageId) {
     const btnId = 'nav-' + pageId;
     if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active-menu');
 
+// TAMBAHKAN INI: Setiap pindah ke input-data, paksa tanggal ke hari ini
+    if (pageId === 'input-data') {
+        const dateInput = document.getElementById('inputDate');
+        if (dateInput) dateInput.value = getTodayKey();
+    }
+
     if (pageId === 'dashboard') updateUI();
     window.scrollTo(0,0);
 }
 
 // --- CORE FUNCTIONS ---
-const getTodayKey = () => new Date().toISOString().split('T')[0];
-const formatTanggalIndo = (tglStr) => {
-    const d = new Date(tglStr);
-    return isNaN(d.getTime()) ? tglStr : d.toLocaleDateString('id-ID');
+const getTodayKey = () => {
+    const d = new Date();
+    // Gunakan toLocaleDateString agar zona waktu sesuai dengan HP lo
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 };
 
 function updateUI() {
-    const tgl = getTodayKey();
-    let tin = 0, tout = 0;
-    const tbody = document.getElementById('tableBody');
-    tbody.innerHTML = '';
+    const tglToday = getTodayKey(); // Ambil tanggal terbaru detik ini
+    let totalIn = 0;
+    let totalOut = 0;
     
+    const tbody = document.getElementById('tableBody');
+    if (tbody) tbody.innerHTML = '';
+
     logs.forEach(item => {
-        if (item.tanggal === tgl) {
-            if (item.tipe === 'in') tin += item.kalori; else tout += item.kalori;
-            tbody.innerHTML += `<tr><td class="wrap-text">${item.nama}</td><td style="text-align:center">${item.tipe==='in'?'Masuk':'Keluar'}</td>
-            <td style="color:${item.tipe==='in'?'#d9534f':'#28a745'}; font-weight:bold; text-align:center;">${item.tipe==='in'?'+':'-'}${item.kalori}</td></tr>`;
+        // HANYA tampilkan jika tanggal di data SAMA dengan tanggal hari ini
+        if (item.tanggal === tglToday) {
+            if (item.tipe === 'in') {
+                totalIn += item.kalori;
+            } else {
+                totalOut += item.kalori;
+            }
+
+            // Render ke tabel dashboard
+            if (tbody) {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${item.nama}</td>
+                        <td>${item.tipe === 'in' ? 'Masuk' : 'Keluar'}</td>
+                        <td style="color:${item.tipe === 'in' ? '#d9534f' : '#28a745'}; font-weight:bold;">
+                            ${item.tipe === 'in' ? '+' : '-'}${item.kalori}
+                        </td>
+                    </tr>`;
+            }
         }
     });
 
-    const net = tin - tout;
-    document.getElementById('dashIn').innerText = tin;
-    document.getElementById('dashOut').innerText = tout;
-    document.getElementById('dashNet').innerText = net + " kcal";
+    // Update Angka Donut & Summary
+    const net = totalIn - totalOut;
+    document.getElementById('dashIn').innerText = totalIn;
+    document.getElementById('dashOut').innerText = totalOut;
+    document.getElementById('dashNet').innerText = `${Math.abs(net)} kcal`;
+    
     const statusEl = document.getElementById('dashStatus');
-    statusEl.innerText = net < 0 ? "(Defisit)" : net > 0 ? "(Surplus)" : "(Seimbang)";
-    statusEl.style.color = net < 0 ? "#28a745" : net > 0 ? "#d9534f" : "#007bff";
+    statusEl.innerText = net > 0 ? "(Surplus)" : net < 0 ? "(Defisit)" : "(Seimbang)";
+    statusEl.style.color = net > 0 ? "#d9534f" : net < 0 ? "#28a745" : "#007bff";
 
-    updateChart(tin, tout);
-    renderArchive();
-    renderRekapHarian();
-    renderBmrHistory();
-    renderProfileView();
+    updateChart(totalIn, totalOut);
 }
-
 function updateChart(vin, vout) {
     const ctx = document.getElementById('myChart');
     if (!ctx) return;
