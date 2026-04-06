@@ -106,8 +106,26 @@ th { background-color: #f8f9fa; color: #555; font-size: 0.7em; text-transform: u
 
 /* --- 7. BUTTONS & MODAL --- */
 .btn-main { background-color: #007bff; color: white; border: none; padding: 16px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1em; -webkit-tap-highlight-color: transparent; }
-.btn-edit { background-color: #28a745; color: white; border: none; padding: 6px 8px; border-radius: 6px; cursor: pointer; margin-right: 4px; }
-.btn-hapus { background-color: #dc3545; color: white; border: none; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
+/* Balik ke Hijau */
+.btn-edit {
+    background-color: #B0B0B0 !important; 
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+/* Balik ke Merah */
+.btn-hapus {
+    background-color: #000000 !important; 
+    color: white;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
 .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; backdrop-filter: blur(3px); }
 .modal.active { display: flex; }
@@ -185,4 +203,27 @@ th { background-color: #f8f9fa; color: #555; font-size: 0.7em; text-transform: u
 #archiveTable td:nth-child(5) { 
     width: 85px; 
     text-align: center; 
+}
+
+/* --- Kolom Tipe Tanpa Bulatan --- */
+.tipe-icon {
+    font-size: 18px; /* Ukuran ikon sedikit diperbesar biar jelas */
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none !important; /* Hapus background */
+    border: none !important;       /* Hapus garis pinggir */
+    width: auto !important;        /* Lebar otomatis sesuai ikon */
+    height: auto !important;       /* Tinggi otomatis */
+}
+
+/* Warna Ikon Masuk (Merah) */
+.icon-in {
+    color: #d9534f !important;
+}
+
+/* Warna Ikon Keluar (Hijau) */
+.icon-out {
+    color: #28a745 !important;
 }

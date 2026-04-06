@@ -137,16 +137,26 @@ function renderArchive() {
     paginatedItems.forEach(item => {
         // GUNAKAN FUNGSI FORMAT INDO DI SINI
         const tglTampil = formatTanggalIndo(item.tanggal); 
-        
+
+        // --- LOGIKA IKON BARU (TAMBAHKAN INI DI SINI) ---
+        let iconType = '';
+        if (item.tipe === 'in') {
+            // Ikon Banah ke Bawah, Merah
+            iconType = `<span class="material-icons tipe-icon icon-in">arrow_downward</span>`;
+        } else {
+            // Ikon Banah ke Atas, Hijau
+            iconType = `<span class="material-icons tipe-icon icon-out">arrow_upward</span>`;
+        }
+
         body.innerHTML += `
             <tr>
                 <td><small>${tglTampil}</small></td>
                 <td class="wrap-text">${item.nama}</td>
-                <td style="text-align:center">${item.tipe==='in'?'In':'Out'}</td>
+                <td style="text-align:center;">${iconType}</td>
                 <td style="text-align:center">${item.kalori}</td>
                 <td style="text-align:center">
                     <button class="btn-edit" onclick="bukaEdit(${item.originalIndex})">✎</button>
-                    <button class="btn-hapus" onclick="hapusLog(${item.originalIndex})">x</button>
+                    <button class="btn-hapus" onclick="hapusLog(${item.originalIndex})">✖</button>
                 </td>
             </tr>`;
     });
