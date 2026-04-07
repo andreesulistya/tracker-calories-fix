@@ -136,7 +136,7 @@ function renderArchive() {
                 <td style="text-align:center">${item.kalori}</td>
                 <td style="text-align:center">
                     <button class="btn-edit" onclick="bukaEdit(${item.originalIndex})">✎</button>
-                    <button class="btn-hapus" onclick="hapusLog(${item.originalIndex})">x</button>
+                    <button class="btn-hapus" onclick="hapusLog(${item.originalIndex})">✖</button>
                 </td>
             </tr>`;
     });
