@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Defisit Tracker</title>
-    
+    <title>Defisit Tracker Pro</title>
     <link rel="icon" type="image/png" href="logo.png">
-
     <link rel="apple-touch-icon" href="logo.png">
-
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="DefisitTracker">
-    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
@@ -24,19 +19,15 @@
     <nav class="navbar">
         <button id="nav-dashboard" onclick="showPage('dashboard')">
             <span class="material-icons">dashboard</span>
-            <!-- <small>Dash</small> -->
         </button>
         <button id="nav-input-data" onclick="showPage('input-data')">
             <span class="material-icons">add_circle</span>
-            <!-- <small>Input</small> -->
         </button>
         <button id="nav-bmr-calc" onclick="showPage('bmr-calc')">
             <span class="material-icons">calculate</span>
-            <!-- <small>BMR</small> -->
         </button>
         <button id="nav-profile" onclick="showPage('profile')">
             <span class="material-icons">person</span>
-            <!-- <small>Profil</small> -->
         </button>
     </nav>
 
@@ -198,20 +189,17 @@
                     <div class="grid-item"><label>TDEE (Maint.)</label><input type="text" id="dispTdee" readonly class="readonly-input"></div>
                 </div>
 
-                <hr style="margin: 30px 0; border:0; border-top:1px solid #eee;">
                 <div class="ideal-container">
                     <h4>Estimasi Berat Badan Ideal</h4>
                     <div class="ideal-bubble"><span id="idealWeight">0.0</span> <small>kg</small></div>
                 </div>
 
-                <hr style="margin: 30px 0; border:0; border-top:1px solid #eee;">
                 <div class="backup-section">
                     <h4 style="margin-bottom: 20px; font-weight: bold;">Backup & Sinkronisasi Data</h4>
                     <div class="backup-buttons">
                         <button class="btn-export" onclick="exportData()">Export Data (.json)</button>
                         <label class="btn-import">Import Data<input type="file" style="display:none" onchange="importData(event)"></label>
                     </div>
-                    <p class="backup-note">*Gunakan file hasil export untuk pindah device.</p>
                 </div>
             </div>
         </section>
@@ -229,22 +217,6 @@
                 <div style="display:flex; gap:10px; margin-top:10px;">
                     <button class="btn-main" onclick="simpanEdit()" style="background:#28a745;">Simpan</button>
                     <button class="btn-main" onclick="tutupModal()" style="background:#6c757d;">Batal</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="editBmrModal" class="modal">
-        <div class="modal-content">
-            <h3>Edit Data Fisik</h3>
-            <div class="input-group">
-                <input type="hidden" id="editBmrIndex">
-                <label>Tanggal:</label><input type="date" id="editBmrDate">
-                <label>Berat (kg):</label><input type="number" id="editBmrWeight">
-                <label>TDEE (kcal):</label><input type="number" id="editBmrTdee">
-                <div style="display:flex; gap:10px; margin-top:10px;">
-                    <button class="btn-main" onclick="simpanEditBmr()" style="background:#28a745;">Update</button>
-                    <button class="btn-main" onclick="tutupBmrModal()" style="background:#6c757d;">Batal</button>
                 </div>
             </div>
         </div>
