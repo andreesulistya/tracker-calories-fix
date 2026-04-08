@@ -1,0 +1,377 @@
+body {
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding-bottom: 80px;
+  -webkit-tap-highlight-color: transparent;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 15px;
+}
+
+/* Container pembungkus agar teks di tengah */
+.ideal-container {
+    text-align: center;
+    margin: 25px 0;
+    padding: 10px 0;
+}
+
+.ideal-container h4 {
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Desain Gelembung (Bubble) Hijau */
+.ideal-bubble {
+    display: inline-block;
+    background-color: #f0fdf4; /* Hijau sangat muda (soft) */
+    padding: 12px 40px;        /* Jarak dalam biar lonjong */
+    border-radius: 50px;       /* Membuat bentuk pill/kapsul */
+    color: #28a745;            /* Warna teks hijau solid */
+    font-size: 2rem;           /* Ukuran angka besar */
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.05); /* Shadow tipis biar elegan */
+}
+
+.ideal-bubble small {
+    font-size: 0.5em;          /* Ukuran tulisan 'kg' lebih kecil */
+    margin-left: 5px;
+}
+
+.page {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.page.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar {
+  display: flex;
+  background: #222;
+  justify-content: space-around;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar button {
+  background: none;
+  border: none;
+  color: #888;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.navbar button.active-menu {
+  color: #007bff;
+}
+.navbar .material-icons {
+  font-size: 26px;
+}
+
+.summary-card-grafik {
+  background: #fff;
+  padding: 30px 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+.chart-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+.chart-center-text { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    text-align: center; 
+    width: 90%; /* Naikin dari 80% ke 90% biar ruang teks lebih lega */
+}
+
+/* --- BUTTON UTAMA (SIMPAN DATA) --- */
+.btn-main {
+  background-color: #007bff !important; /* Warna Biru Utama */
+  color: white !important; /* Teks Putih */
+  border: none !important; /* Hapus garis pinggir */
+  padding: 16px !important; /* Kasih ruang biar tebel */
+  border-radius: 10px !important; /* Sudut membulat */
+  font-weight: bold !important; /* Teks tebal */
+  cursor: pointer;
+  width: 100%; /* Lebar penuh */
+  font-size: 1.1em;
+  margin-top: 10px;
+  display: block;
+  transition: background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Efek pas diklik biar kerasa responsif */
+.btn-main:active {
+  background-color: #0056b3 !important; /* Biru lebih gelap pas diteken */
+  transform: scale(0.98);
+}
+.net-value { 
+    font-size: 1.6em; /* Kecilin dikit dari 1.8em ke 1.6em */
+    font-weight: bold; 
+    margin: 2px 0; 
+    white-space: nowrap; /* KUNCI: Biar teks nggak pecah jadi 2 baris */
+}
+.summary-details-new {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+}
+.dot-in {
+  width: 12px;
+  height: 12px;
+  background: #d9534f;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-out {
+  width: 12px;
+  height: 12px;
+  background: #28a745;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #eee;
+  margin-top: 15px;
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.fixed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+}
+th,
+td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #eee;
+}
+th {
+  background: #f8f9fa;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+/* TIPE ICON CLEAN */
+.tipe-icon {
+  font-size: 22px;
+  font-weight: bold;
+  display: inline-flex;
+  color: inherit;
+}
+.icon-in {
+  color: #d9534f;
+}
+.icon-out {
+  color: #28a745;
+}
+
+/* BUTTONS AKSI SIMETRIS */
+.btn-edit,
+.btn-hapus {
+  width: 25px;
+  height: 25px;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+}
+.btn-edit {
+  background: #bdbdbd !important;
+  margin-right: 5px;
+}
+.btn-hapus {
+  background: #000000 !important;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.pagination button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 5px;
+}
+.pagination button.active-page {
+  background: #007bff;
+  color: #fff;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.modal.active {
+  display: flex;
+}
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 350px;
+}
+
+@media (max-width: 500px) {
+  .navbar small {
+    display: none;
+  }
+}
+
+/* --- TAMPILAN TOMBOL BACKUP (SESUAI GAMBAR) --- */
+.backup-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.backup-buttons { 
+    display: flex; 
+    flex-direction: column; /* Ini kunci biar tombolnya numpuk atas-bawah */
+    gap: 12px;              /* Jarak antar tombol */
+    margin-top: 15px;
+}
+
+.btn-export, .btn-import { 
+    width: 100%;            /* Biar lebarnya penuh ke samping */
+    padding: 16px;          /* Biar tombolnya tebal/gemuk */
+    border-radius: 12px;    /* Sudut membulat modern */
+    font-weight: bold; 
+    font-size: 1.1em; 
+    cursor: pointer; 
+    border: none;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+    transition: filter 0.2s;
+}
+
+/* Warna Export (Abu-abu Gelap) */
+.btn-export { 
+    background-color: #6c757d !important; 
+    color: white !important; 
+}
+
+/* Warna Import (Hijau) */
+.btn-import { 
+    background-color: #28a745 !important; 
+    color: white !important; 
+}
+
+/* Efek pas ditekan jari */
+.btn-export:active, .btn-import:active {
+    filter: brightness(0.8);
+}
+
+.backup-note { 
+    font-size: 0.85em; 
+    color: #888; 
+    margin-top: 15px; 
+    font-style: italic;
+}
+
+/* Update lebar kolom aksi Riwayat Fisik */
+#bmrTableBody td:last-child {
+    width: 95px;
+    min-width: 95px;
+}
+
+
+
+/* --- Tampilan Input Profil (Sesuai Gambar) --- */
+.readonly-input {
+    background-color: #f8f9fa !important; /* Abu-abu sangat muda */
+    border: 1px dashed #ccc !important;   /* Garis putus-putus abu-abu */
+    color: #007bff !important;           /* Warna teks Biru cerah */
+    font-weight: bold !important;
+    padding: 12px 15px !important;
+    border-radius: 12px !important;      /* Sudut membulat */
+    font-size: 1.1rem !important;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Biar Nama Lengkap juga senada tapi tetap bisa diketik */
+#profName {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Jarak antar item di profil */
+.grid-item {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item label {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+    margin-left: 5px;
+}
